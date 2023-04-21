@@ -58,7 +58,7 @@ class Best_move {
         let a = this.winning_situation(sumcol);
         adv += a * M;
         this.sum_sumcol_values(sumcol);
-        adv += sumcol[-1] + sumcol[1] + 4 * sumcol[2] + 8 * sumcol[3] + 16 * sumcol[4];
+        adv += sumcol[-1] + sumcol[1] + 4 * sumcol[2] + 10 * sumcol[3] + 24 * sumcol[4];
     
         // Phòng thủ
         board[y][x] = anti_xo;

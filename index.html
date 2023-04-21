@@ -5,13 +5,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Caro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="caro">
-        <canvas id="board"></canvas>
-        <div id="tooltip1" style="color: blue; font-weight: bold;"></div>
+    <div class="title-game">Cờ Caro</div>
+
+    <!-- controller -->
+    <div id="control-show">
+        <div class="control-show d-flex flex-column align-items-center">
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <button class="btn btn-primary btn-block w-100" id="play-with-friend">Chơi với bạn</button>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-secondary btn-block w-100" id="play-with-computer">Chơi với máy</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="bestmove.js"></script>
-    <script src="caro.js"></script>
+        
+    <!-- play-w-machine -->
+    <div id="play-w-m">
+        <div class="play-w-m d-flex flex-column align-items-center">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <button class="btn btn-primary btn-block w-100" id="btn-go-ahead">Bạn đi trước</button>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <button class="btn btn-primary btn-block w-100" id="btn-go-m">Máy đi trước</button>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-secondary btn-block w-100" id="back-btn-pwm">Trở về</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- play-w-h -->
+    <div id="play-w-h">
+        <div class="play-w-h d-flex flex-column align-items-center">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <button class="btn btn-primary btn-block w-100" id="">Tạo phòng</button>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <button class="btn btn-primary btn-block w-100" id="enter-room">Vào phòng</button>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-secondary btn-block w-100" id="back-btn-pwh">Trở về</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- enter id form -->
+    <div id="enter-id-form">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="form-group">
+                  <input type="text" id="room-id-input" class="form-control" placeholder="Nhập ID phòng">
+                </div>
+                <div class="form-group-id d-flex ">
+                    <button class="btn btn-primary flex-fill mr-1" id="enter-room-btn">Vào phòng</button>
+                    <button class="btn btn-secondary flex-fill ml-1" id="back-btn-pwh-id">Trở về</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div id="create-board">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="caro">
+                <canvas id="board"></canvas>
+                <div id="tooltip1" style="color: blue; font-weight: bold;"></div>
+            </div>
+            <div class="btn-g mt-auto d-block">
+                <button class="btn btn-primary flex-fill mr-1" id="btn-new-game">Game mới</button>
+                <button class="btn btn-primary flex-fill mr-1" id="btn-undo">Undo</button>
+                <button class="btn btn-secondary flex-fill ml-1" id="btn-quit-game">Thoát</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="JS/main.js"></script>
+    <script src="JS/bestmove.js"></script>
+    <script src="JS/createborad.js"></script>
+    <!-- <script src="caro.js"></script> -->
 </body>
 </html>

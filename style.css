@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(239, 229, 244, 0.588);
+}
+
+.title-game {
+    color: blue;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.control-show,
+.play-w-m,
+.play-w-h,
+.form-group-id
+{
+    margin-top: 20px;
+}
+
+#play-w-h,
+#play-w-m,
+#enter-id-form,
+#create-board
+{
+    display: none;
+}
+
+
+
+#enter-room-btn,
+#btn-g
+{
+    margin-right: 10px;
+}
+
+canvas {
+    border: 1px solid black;
+}
