@@ -38,6 +38,31 @@ body {
     margin-right: 10px;
 }
 
-canvas {
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
     border: 1px solid black;
+    cursor: pointer;
+  }
+td:hover{
+      background-color: blueviolet;
+}
+
+#board td {
+    text-align: center;
+}
+
+#board td.X {
+    color: blue;
+}
+
+#board td.O {
+    color: red;
 }

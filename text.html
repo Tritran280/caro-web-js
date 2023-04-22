@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Caro</title>
+  <style>
+    /* Thiết lập kiểu dáng cho bảng */
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    td {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+    td:hover{
+        background-color: blueviolet;
+    }
+  </style>
+</head>
+<body>
+  <h1>Caro</h1>
+  <button id="new-game-btn">Chơi mới bạn</button>
+  <button id="play-with-ai-btn">Chơi với máy</button>
+  <div id="game"></div>
+  <button id="exit-btn" style="display: none;">Thoát game</button>
+
+  <script>
+    // Tạo bảng
+    const boardSize = 5;
+    let board = null;
+    let player = null;
+
+    function createBoard() {
+      board = document.createElement('table');
+      board.setAttribute('id', 'board');
+      for (let i = 0; i < boardSize; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < boardSize; j++) {
+          const cell = document.createElement('td');
+          cell.setAttribute('id', i * boardSize + j);
+          cell.addEventListener('click', function() {
+            clicked(i, j)
+          });
+          row.appendChild(cell);
+        }
+        board.appendChild(row);
+      }
+
+      function clicked(i, j) {
+        if(player === 1) {
+            console.log(i, j, 1)
+        }else{
+            console.log(i, j, 0)
+        }
+      }
+
+     
+      const game = document.getElementById('game');
+      game.innerHTML = '';
+      game.appendChild(board);
+
+      // Hiển thị nút thoát game
+      const exitBtn = document.getElementById('exit-btn');
+      exitBtn.style.display = 'block';
+    }
+
+    // Xử lý sự kiện khi người dùng nhấn nút "Chơi mới bạn"
+    const newGameBtn = document.getElementById('new-game-btn');
+    newGameBtn.addEventListener('click', function() {
+      createBoard();
+    });
+
+    // Xử lý sự kiện khi người dùng nhấn nút "Chơi với máy"
+    const playWithAIBtn = document.getElementById('play-with-ai-btn');
+    playWithAIBtn.addEventListener('click', function() {
+      const isUserFirst = confirm('Bạn có muốn đi trước không?');
+      if (isUserFirst) {
+        player = 1
+      } else {
+        player = 0
+      }
+      createBoard();
+    });
+
+    const exitGameBtn = document.getElementById('exit-btn');
+    exitGameBtn.addEventListener('click', function() {
+      // Xóa bảng (phần tử table) khỏi phần tử có id là "game"
+      const table = document.getElementById('board');
+      table.parentNode.removeChild(table);
+
+      // Ẩn nút thoát game
+      exitGameBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

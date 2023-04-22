@@ -44,7 +44,7 @@ class Board {
         const aicaro = new Best_move(this.size)
         const xy = aicaro.best_move(this.board, "o")
         this.addText(0, xy[0], xy[1])
-      }else{
+      }else if(this.player === 'o'){
         this.addText(0, this.col_, this.row_)
         const aicaro = new Best_move(this.size)
         const xy = aicaro.best_move(this.board, "x")
@@ -57,6 +57,7 @@ class Board {
     }
     
     addText(player, x, y) {
+      console.log(player)
       const color = player === 1 ? "#f00000" : "#0000CD";
       const symbol = player === 1 ? "X" : "O";
       this.context.fillStyle = color;
@@ -68,6 +69,9 @@ class Board {
       const rect = this.canvas.getBoundingClientRect();
       this.col_ = Math.floor((event.clientX - rect.left) / this.square_size);
       this.row_ = Math.floor((event.clientY - rect.top) / this.square_size);
+    }
+
+    quitGame(){
     }
   }
   
