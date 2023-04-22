@@ -2,6 +2,8 @@ let player = null
 const boardSize = 20
 let uidboard = null
 let board = make_empty_board(boardSize)
+let moves = [];
+let ish = null
 
 const disp_home_ = document.getElementById('control-show')
 const disp_pwm = document.getElementById('play-w-m')
@@ -56,25 +58,29 @@ back_btn_id_.addEventListener('click', function() {
     disp_ntr.style.display = 'none'
 })
 
-btn_go_ahead.addEventListener('click', function() {
-    disp_board_.style.display = 'block';
-    disp_pwm.style.display = 'none';
-    uid = generateUid()
-    document.querySelector('.game').setAttribute('id', uid);
-    player = 1
-    createBoard();
 
+btn_go_ahead.addEventListener('click', function() {
+    startGame(1);
 })
 
 btn_go_m.addEventListener('click', function() {
+    startGame(0);
+})
+
+function startGame(p) {
     disp_board_.style.display = 'block';
     disp_pwm.style.display = 'none';
-    uid = generateUid()
-    player = 0
+    uid = generateUid();
     document.querySelector('.game').setAttribute('id', uid);
     createBoard();
+    if (p === 0) {
+        player = 0
+        addText(1, 9, 9);
+    }else{
+        player = 1
+    }
+}
 
-})
 
 // tạo uid ván game
 function generateUid() {
@@ -87,62 +93,90 @@ function generateUid() {
 }
 
 function createBoard() {
-    const board = document.createElement('table');
-    board.setAttribute('id', 'board');
+    const boardElement = document.createElement('table');
+    boardElement.setAttribute('id', 'board');
     for (let i = 0; i < boardSize; i++) {
         const row = document.createElement('tr');
         for (let j = 0; j < boardSize; j++) {
             const cell = document.createElement('td');
             cell.setAttribute('id', i * boardSize + j);
+            cell.style.backgroundColor = (i + j) % 2 === 0 ? 'rgb(188, 168, 141, 0.5)' : '';
             cell.addEventListener('click', function() {
                 clicked(i, j);
             });
             row.appendChild(cell);
         }
-        board.appendChild(row);
+        boardElement.appendChild(row);
     }
     const game = document.getElementById(uid);
     game.innerHTML = '';
-    game.appendChild(board);
-  }
-  
-function clicked(i, j) {
-    if (player === 1) {
-        const celll = document.getElementById(i * boardSize + j);
-        celll.innerHTML = 'X';
-        celll.classList.add('X');
-        board[i][j] = 'x'
-
-        const ai = new Best_move(boardSize)
-        xy = ai.best_move(board, 'o')
-        console.log(xy)
-        const cell = document.getElementById(xy[0] * boardSize + xy[1]);
-        cell.innerHTML = 'O';
-        cell.classList.add('O');
-        board[xy[0]][xy[1]] = 'o'
-
-    }
-// } else {
-//     cell.innerHTML = 'O';
-//     cell.classList.add('O');
-//     player = 1;
+    game.appendChild(boardElement);
 }
 
+
+
+function clicked(i, j) {
+    if (board[i][j] !== " ") { return };
+
+    if (player === 1) {
+        addText(1, i, j);
+        const ai = new Best_move(boardSize);
+        const xy = ai.best_move(board, 'o');
+        addText(0, xy[0], xy[1]);
+
+    } else if (player === 0) {
+        addText(0, i, j);
+        const ai = new Best_move(boardSize);
+        const xy = ai.best_move(board, 'x');
+        addText(1, xy[0], xy[1]);
+    }
+}
+
+function addText(player, x, y) {
+    const cell = document.getElementById(x * boardSize + y);
+    cell.innerHTML = player === 1 ? 'X' : 'O';
+    cell.classList.add(player === 1 ? 'X' : 'O');
+    board[x][y] = player === 1 ? 'x' : 'o';
+    moves.push([x, y, player]);
+}
 
 function make_empty_board(size) {
     return Array(size).fill().map(() => Array(size).fill(' '));
   }
 
-
-
+// button thoát game
 btn_quit_game.addEventListener('click', function() {
-    // Xóa bảng (phần tử table) khỏi phần tử có id là "game"
     const table = document.getElementById('board');
     table.parentNode.removeChild(table);
-
     disp_board_.style.display = 'none'
     disp_pwm.style.display = 'block'
     board = make_empty_board(boardSize)
 
 });
 
+// button undo
+document.getElementById('btn-undo').addEventListener('click', function() {
+    if(moves.length > 1) {
+        delete_(2)
+    }
+})
+
+// button new game
+document.getElementById('btn-new-game').addEventListener('click', function() {
+    delete_(moves.length)
+    if(player === 0){
+        addText(1, 9, 9);
+    }
+})
+
+function delete_(n){
+    for (let k = 0; k < n; k++) {
+        const lastMove = moves.pop();
+        const i = lastMove[0];
+        const j = lastMove[1];
+        board[i][j] = ' ';
+        const cell = document.getElementById(i * boardSize + j);
+        cell.innerHTML = ' ';
+        cell.classList.remove('X', 'O');
+    }
+}
