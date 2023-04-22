@@ -186,7 +186,7 @@ class Best_move {
         return this.score_ready(scores_xo);
     }
 
-    TF34score(score3, score4) {
+    score_3_4(score3, score4) {
         for (let key4 in score4) {
             if (score4[key4] >= 1) {
                 for (let key3 in score3) {
@@ -204,7 +204,7 @@ class Best_move {
             return 5;
         } else if (Object.keys(sum_xo[4]).length >= 2 || (Object.keys(sum_xo[4]).length >= 1 && Math.max(...Object.values(sum_xo[4])) >= 2)) {
             return 4;
-        } else if (this.TF34score(sum_xo[3], sum_xo[4])) {
+        } else if (this.score_3_4(sum_xo[3], sum_xo[4])) {
             return 4;
         } else {
             let score3 = Object.values(sum_xo[3]).sort((a, b) => b - a);
