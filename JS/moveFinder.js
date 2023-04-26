@@ -1,4 +1,4 @@
-class Best_move {
+class MoveFinder {
 
     constructor(size){
         this.size = size
@@ -32,7 +32,7 @@ class Best_move {
         return cord;
     }
 
-    best_move(board, xo) {
+    find(board, xo) {
         let anti_xo = xo === 'o' ? 'x' : 'o';
         let max_score = -Infinity;
         let best_move = [0, 0];
@@ -218,4 +218,18 @@ class Best_move {
     make_empty_board() {
         return Array(this.size).fill().map(() => Array(this.size).fill(' '));
     }
+
+    is_win(board) {
+        let player_x = this.score_of_col(board, 'x');
+        let player_o = this.score_of_col(board, 'o');
+      
+        this.sum_sumcol_values(player_x);
+        this.sum_sumcol_values(player_o);
+      
+        if (player_x.get(5) === 1) {
+          return 'X win';
+        } else if (player_o.get(5) === 1) {
+          return 'O win';
+        }
+      }
 }

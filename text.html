@@ -1,101 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Caro</title>
-  <style>
-    /* Thiết lập kiểu dáng cho bảng */
-    table {
-      border-collapse: collapse;
-      margin: 20px auto;
-    }
-    td {
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      border: 1px solid black;
-      cursor: pointer;
-    }
-    td:hover{
-        background-color: blueviolet;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test#01</title>
 </head>
 <body>
-  <h1>Caro</h1>
-  <button id="new-game-btn">Chơi mới bạn</button>
-  <button id="play-with-ai-btn">Chơi với máy</button>
-  <div id="game"></div>
-  <button id="exit-btn" style="display: none;">Thoát game</button>
+<style> .color {color: blue; text-align: center; font-size: 40px; cursor: pointer;}  </style>
+<div class="all-room"></div>
+<button id="add-num">Thêm số</button>
+<button id="delete-num">Bỏ số</button>
 
-  <script>
-    // Tạo bảng
-    const boardSize = 5;
-    let board = null;
-    let player = null;
+<script>
+	const allRoomDiv = document.querySelector('.all-room');
+	let num = 1;
+	let arr = [];
 
-    function createBoard() {
-      board = document.createElement('table');
-      board.setAttribute('id', 'board');
-      for (let i = 0; i < boardSize; i++) {
-        const row = document.createElement('tr');
-        for (let j = 0; j < boardSize; j++) {
-          const cell = document.createElement('td');
-          cell.setAttribute('id', i * boardSize + j);
-          cell.addEventListener('click', function() {
-            clicked(i, j)
-          });
-          row.appendChild(cell);
-        }
-        board.appendChild(row);
-      }
+	function generateId(n) {
+	const characters = '123456789';
+	let id = '';
+	for (let i = 0; i < n; i++) {
+		id += characters.charAt(Math.floor(Math.random() * characters.length));
+	}
+	return id;
+	}
 
-      function clicked(i, j) {
-        if(player === 1) {
-            console.log(i, j, 1)
-        }else{
-            console.log(i, j, 0)
-        }
-      }
+	function generateRandomIds(numIds) {
+	return Array.from({length: numIds}, () => generateId(2));
+	}
 
-     
-      const game = document.getElementById('game');
-      game.innerHTML = '';
-      game.appendChild(board);
+	function setArr() {
+	arr = generateRandomIds(num);
+	}
 
-      // Hiển thị nút thoát game
-      const exitBtn = document.getElementById('exit-btn');
-      exitBtn.style.display = 'block';
-    }
+	function addId() {
+	allRoomDiv.innerHTML = arr.map(id => `<div class="${id} color">${id}</div>`).join('');
 
-    // Xử lý sự kiện khi người dùng nhấn nút "Chơi mới bạn"
-    const newGameBtn = document.getElementById('new-game-btn');
-    newGameBtn.addEventListener('click', function() {
-      createBoard();
-    });
+	// Thêm sự kiện click cho mỗi số được tạo ra
+	document.querySelectorAll('.color').forEach(div => {
+		div.addEventListener('click', () => {
+		console.log(div.classList[0]); // In ra id của số khi được chọn
+		});
+	});
+	}
+	setInterval(() => {
+	setArr();
+	addId();
+	}, 5000);
 
-    // Xử lý sự kiện khi người dùng nhấn nút "Chơi với máy"
-    const playWithAIBtn = document.getElementById('play-with-ai-btn');
-    playWithAIBtn.addEventListener('click', function() {
-      const isUserFirst = confirm('Bạn có muốn đi trước không?');
-      if (isUserFirst) {
-        player = 1
-      } else {
-        player = 0
-      }
-      createBoard();
-    });
-
-    const exitGameBtn = document.getElementById('exit-btn');
-    exitGameBtn.addEventListener('click', function() {
-      // Xóa bảng (phần tử table) khỏi phần tử có id là "game"
-      const table = document.getElementById('board');
-      table.parentNode.removeChild(table);
-
-      // Ẩn nút thoát game
-      exitGameBtn.style.display = 'none';
-    });
-  </script>
+	document.getElementById('add-num').addEventListener('click', () => num++);
+	document.getElementById('delete-num').addEventListener('click', () => num--);
+</script>
 </body>
+
 </html>
