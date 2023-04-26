@@ -17,7 +17,7 @@ class PvPUI {
             if (this.createRoomButton && this.createRoomButton.offsetParent !== null) {
             this.getAllRoomIds();
             }
-        }, 900)
+        }, 1000)
     }
 
     setDisplayStyle(style) 

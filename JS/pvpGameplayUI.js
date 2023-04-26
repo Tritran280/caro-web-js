@@ -15,7 +15,7 @@ class PvPGameplayUI {
             if (this.quitGameButton && this.quitGameButton.offsetParent !== null) {
             this.getTableData()
             }
-        }, 500);
+        }, 1000);
         }
   
     setDisplayStyle(style) {
