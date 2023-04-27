@@ -2,6 +2,7 @@ const boardSize = 20
 const moveFinder = new MoveFinder(boardSize)
 
 let baseUrl = 'https://mtphone.000webhostapp.com/apicrg/'
+// let baseUrl = 'http://localhost/api/'
 
 const xmlHttpRequest = new XMLHttpRequest();
 const room = new Room()

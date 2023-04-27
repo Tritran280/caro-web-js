@@ -29,6 +29,8 @@ class PvPGameplayUI {
         this.roomId.innerHTML = "";
         this.setDisplayStyle("none");
         pvpUI.setDisplayStyle("block");
+        callApi(`${baseUrl}delete_table.php?uid=table_${room.id}&id=${room.id}`)
+        callApi(`${baseUrl}delete_val_id_table.php?uid=table_${room.id}&id=${room.id}`)
     
         gameplay.clearBoard();
         this.boards = [];
