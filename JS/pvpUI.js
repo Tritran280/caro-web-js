@@ -11,6 +11,7 @@ class PvPUI {
 
         this.findRoomButton.addEventListener('click', this.findRoom.bind(this))
         this.createRoomButton.addEventListener('click', this.createRoom.bind(this))
+        this.backButton.addEventListener('click', this.back.bind(this))
 
         setInterval(() => 
         {
@@ -18,6 +19,12 @@ class PvPUI {
             this.getAllRoomIds();
             }
         }, 1000)
+    }
+
+    back()
+    {
+        this.setDisplayStyle('none')
+        mainMenu.setDisplayStyle('block')
     }
 
     setDisplayStyle(style) 
