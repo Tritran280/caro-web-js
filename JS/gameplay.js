@@ -22,7 +22,7 @@ class Gameplay
 		this.makeSilentMove(player, x, y)
 
         document.dispatchEvent(this.moveMadeEvent)
-        if (uploadMove) callApi(`${baseUrl}add_value_table.php?uid=table_${room.id}&player=${player}&x=${x}&y=${y}`)
+        if (uploadMove) callApi(`${baseUrl}add_value_table.php?uid=table_${room.id}&player=${player}&x=${x}&y=${y}&numplayer=2`)
     }
 
 	makeSilentMove(player, x, y)
